@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block content
+	ol.breadcrumb
+		li.breadcrumb-item
+			a(href="/") Home
+		li.breadcrumb-item
+			a(href="/paypal") PayPal
+		li.breadcrumb-item.active Payment return
+	.jumbotron
+		h2.warning Paypal Payment Cancelled
+		ul
+			li token = #{token}
+	a(href="/paypal" role="button" class="btn btn-primary") Make another new payment

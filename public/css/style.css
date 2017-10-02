@@ -1,3 +1,15 @@
+body {
+	font-size: 18px;
+}
+
 .form-group {
 	margin-bottom: 20px;
+}
+
+.warning {
+	color: #960000;
+}
+
+ol {
+	margin-top: 20px;
 }

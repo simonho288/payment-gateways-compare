@@ -17,14 +17,19 @@ app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
-  secret: 'simonho288-secret',
-  saveUninitialized: true,
-  resave: true
+	secret: 'simonho288-secret',
+	saveUninitialized: true,
+	resave: true
 }))
 
 // Load the route modules
 app.use('/paypal', require('./routes/paypal'))
 
+// Home page
+app.get('/', (req, res) => {
+	res.render('index.pug', { pretty: true })
+})
+
 app.listen(3000, () => {
-  console.log('Server App listening on port 3000')
+	console.log('Server App listening on port 3000')
 })

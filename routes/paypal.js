@@ -6,13 +6,19 @@ const dotenv = require('dotenv')
 
 dotenv.config() // load environment variables from .env file
 
+paypal.configure({
+	mode: process.env.PAYPAL_MODE,
+	client_id: process.env.PAYPAL_CLIENT_ID,
+	client_secret: process.env.PAYPAL_CLIENT_SECRET
+})
+
 // middleware that is specific to this router
-router.use(function timeLog (req, res, next) {
+router.use((req, res, next) => {
 	next()
 })
 
 // define the home page route
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
 	let opts = {
 		pretty: true,
 		mode: process.env.PAYPAL_MODE
@@ -20,12 +26,30 @@ router.get('/', function (req, res) {
 	res.render('./paypal/home.pug', opts)
 })
 
+router.get('/payment-return', (req, res) => {
+	let opts = {
+		pretty: true,
+		paymentId: 	req.query.paymentId,
+		token: req.query.token,
+		PayerID: req.query.PayerID
+	}
+	res.render('./paypal/payment-return.pug', opts)
+})
+
+router.get('/payment-cancel', (req, res) => {
+	let opts = {
+		pretty: true,
+		token: req.query.token
+	}
+	res.render('./paypal/payment-cancel.pug', opts)
+})
+
 // Form post by sandbox-express-checkout.pug
 router.post('/submit', (req, res) => {
 	logger.debug('app.js: /submit')
 	
-	let description = req.body.description ?
-		req.body.description : 'This is the payment description'
+	let description = req.body.description ? req.body.description : 'This is the payment description'
+	let amount = req.body.amount
 	let host = req.protocol + '://' + req.get('host')
 	let createPaymentJson = {
 		intent: "sale", // authorize
@@ -33,22 +57,22 @@ router.post('/submit', (req, res) => {
 			payment_method: "paypal"
 		},
 		redirect_urls: {
-			return_url: host + '/paypal_return', // see above route
-			cancel_url: host + '/payment_cancel' // see above route
+			return_url: host + '/paypal/payment-return',
+			cancel_url: host + '/paypal/payment-cancel'
 		},
 		transactions: [{
 			item_list: {
 				items: [{
 					name: "item 1",
-					sku: "item_01",
-					price: "0.1",
+					sku: "item_1",
+					price: amount,
 					currency: "USD",
 					quantity: 1
 				}]
 			},
 			amount: {
 				currency: "USD",
-				total: "0.1"
+				total: amount
 			},
 			description: description
 		}]

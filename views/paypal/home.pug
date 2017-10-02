@@ -10,14 +10,15 @@ block content
 		ul
 			li NodeJS with paypal-rest-sdk NPM
 			li Input amount and/or description
-			li Click <kbd>Paid By PalPal</kbd> button
+			li Click <kbd>Pay with PalPal</kbd> button
+			li Auto redirect to PayPal and input PayPal account
 			li If payment successful, it redirects to Payment Successful page. Otherwise it redirects to Payment Failure page.
 
 	form(action="/paypal/submit" method="POST")
 		.form-group
-			label(for="amount") Amount to pay
-			input#amount.form-control.col-4(type="number" name="amount" value="1")
+			label(for="amount") Amount to pay in USD
+			input(id="amount" class="form-control col-4" type="number" name="amount" value="1" min="1" max="99")
 		.form-group
 			label(for="description") Payment description
 			input#description.form-control(type="text" name="description" maxlength="100" placeholder="Optional")
-		button(class="btn btn-primary btn-lg" type="submit") Paid By PayPal
+		button(class="btn btn-primary btn-lg" type="submit") Pay with PayPal
