@@ -1,0 +1,33 @@
+{
+  "name": "payment-gateways-compare",
+  "version": "1.0.0",
+  "description": "Compare three payment gateways (PayPal, Stripe, Braintree) in developer aspect. This project built using Node-ExpressJS as well as the NodeJS SDKs from three vendors.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "debug": "nodemon --debug $main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonho288/payment-gateways-compare.git"
+  },
+  "keywords": [],
+  "author": "simonho288",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simonho288/payment-gateways-compare/issues"
+  },
+  "homepage": "https://github.com/simonho288/payment-gateways-compare",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "paypal-rest-sdk": "^1.7.1",
+    "pug": "^2.0.0-rc.4",
+    "serve-favicon": "^2.4.5",
+    "winston-color": "^1.0.0"
+  }
+}
