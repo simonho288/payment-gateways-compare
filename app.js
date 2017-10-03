@@ -24,6 +24,7 @@ app.use(session({
 
 // Load the route modules
 app.use('/paypal', require('./routes/paypal'))
+app.use('/braintree', require('./routes/braintree'))
 
 // Home page
 app.get('/', (req, res) => {

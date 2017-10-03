@@ -2,6 +2,10 @@ body {
 	font-size: 18px;
 }
 
+ol {
+	margin-top: 20px;
+}
+
 .form-group {
 	margin-bottom: 20px;
 }
@@ -10,6 +14,16 @@ body {
 	color: #960000;
 }
 
-ol {
+.status-img {
+	margin-left: 20%;
+	margin-bottom: 10px;
+}
+
+.description {
 	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.has-error {
+	color: #D40000;
 }

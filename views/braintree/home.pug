@@ -1,0 +1,139 @@
+extends ../layout.pug
+
+block content
+	ol.breadcrumb
+		li.breadcrumb-item
+			a(href="/") Home
+		li.breadcrumb-item.active Braintree
+	.jumbotron
+		h2 Braintree Payment (#{mode})
+		ul
+			li NodeJS with braintree NPM
+			li Input amount and/or description
+			li Testing Visa cards (successful chargable): <kbd>4111111111111111</kbd>, expiry: <kbd>01/29</kbd>
+			li or occasionally unsuccessful charge cart: <kbd>4000111111111115</kbd>, expiry: <kbd>01/29</kbd>
+			li Click <kbd>Pay with Braintree</kbd> button
+			li Auto redirect to success or failure page depends on the card charged successfully
+
+	form#payment-form(action="/braintree/submit", method="post")
+		.form-group
+		section
+			label(for="amount") Amount (1-9, default 1)
+			.input-wrapper.amount-wrapper
+				input#amount(name="amount" type="tel" min="1" max="9" placeholder="Amount" value="1")
+			.bt-drop-in-wrapper
+				#bt-dropin
+		input#nonce(type="hidden" name="payment_method_nonce")
+		button(class="btn btn-primary btn-lg" type="submit") Pay with Braintree
+	script(src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js")
+	script.
+		'use strict';
+		var form = document.querySelector('#payment-form');
+		var token = '#{clientToken}';
+
+		braintree.dropin.create({
+			authorization: token,
+			container: '#bt-dropin',
+			paypal: {
+				flow: 'vault'
+			}
+		}, function (createErr, instance) {
+			form.addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				instance.requestPaymentMethod(function (err, payload) {
+					if (err) {
+						console.log('Error', err);
+						return;
+					}
+
+					// Add the nonce to the form and submit
+					document.querySelector('#nonce').value = payload.nonce;
+					form.submit();
+				});
+			});
+		});
+
+		function Demo(config) {
+			this.config = config;
+			this.config.development = config.development || false;
+
+			this.paymentForm = $('#' + config.formID);
+			this.inputs = $('input[type=text], input[type=email], input[type=tel]');
+			this.button = this.paymentForm.find('.button');
+
+			this.states = {
+				show: 'active',
+				wait: 'loading'
+			};
+			this.focusClass = 'has-focus';
+			this.valueClass = 'has-value';
+
+			this.initialize();
+		}
+
+		Demo.prototype.initialize = function () {
+			var self = this;
+
+			this.events();
+			this.inputs.each(function (index, element) {
+				self.labelHander($(element));
+			});
+			this.notify('error');
+		};
+
+		Demo.prototype.events = function () {
+			var self = this;
+
+			this.inputs.on('focus', function () {
+				$(this).closest('label').addClass(self.focusClass);
+				self.labelHander($(this));
+			}).on('keydown', function () {
+				self.labelHander($(this));
+			}).on('blur', function () {
+				$(this).closest('label').removeClass(self.focusClass);
+				self.labelHander($(this));
+			});
+		};
+
+		Demo.prototype.labelHander = function (element) {
+			var self = this;
+			var input = element;
+			var label = input.closest('label');
+
+			window.setTimeout(function () {
+				var hasValue = input.val().length > 0;
+
+				if (hasValue) {
+					label.addClass(self.valueClass);
+				} else {
+					label.removeClass(self.valueClass);
+				}
+			}, 10);
+		};
+
+		Demo.prototype.notify = function (status) {
+			var self = this;
+			var notice = $('.notice-' + status);
+			var delay = this.config.development === true ? 4000 : 2000;
+
+			notice.show();
+
+			window.setTimeout(function () {
+				notice.addClass('show');
+				self.button.removeClass(self.states.wait);
+
+				window.setTimeout(function () {
+					notice.removeClass('show');
+					window.setTimeout(function () {
+						notice.hide();
+					}, 310);
+				}, delay);
+			}, 10);
+		};
+
+
+
+		var checkout = new Demo({
+			formID: 'payment-form'
+		});
