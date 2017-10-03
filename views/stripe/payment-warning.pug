@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	ol.breadcrumb
+		li.breadcrumb-item
+			a(href="/") Home
+		li.breadcrumb-item
+			a(href="/stripe") Stripe
+		li.breadcrumb-item.active Result
+	.container
+		.row
+			.col-12
+				img(src="/images/success.svg" class="status-img")
+				h1 Payment Success but with warning
+				h3.description Charge Id: #{charge_id}
+				h3.description.has-error Warning message: #{msg}
+				p
+					a(href="/stripe") Click here to make payment again

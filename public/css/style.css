@@ -27,3 +27,11 @@ ol {
 .has-error {
 	color: #D40000;
 }
+
+.creditcard-form {
+	margin-bottom: 20px;
+}
+
+#accordion {
+	margin-bottom: 100px;
+}

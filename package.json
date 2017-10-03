@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "debug": "nodemon --debug $main",
+    "debug": "nodemon --debug app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
