@@ -34,4 +34,4 @@ npm start
 Open your Chrome browser and browse: http://localhost:3000
 
 # App Execution Description
-Please refer to the [Blog post]()
+Please refer to the [Blog post](https://blog.simonho.net/comparing-the-ux-of-three-payment-processors-using-nodejs-sdks-paypal-vs-braintree-vs-stripe/)
