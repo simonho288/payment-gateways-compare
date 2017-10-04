@@ -5,7 +5,7 @@ Compare three payment gateways (PayPal, Stripe, Braintree) in developer aspect. 
 ## Run the project
 
 ### 1. Fill in the access keys
-In project root, create a text file .env and fill in the accesskey values from your payment processors.
+In project root, create a text file `.env` and fill in the accesskey values from your payment processors.
 ```yaml
 PAYPAL_MODE=[sandbox|production]
 PAYPAL_CLIENT_ID='[Your PayPal Client Id]'
