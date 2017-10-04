@@ -43,10 +43,7 @@ router.get('/', (req, res) => {
 	})
 })
 
-// Form post by sandbox-express-checkout.pug
 router.post('/submit', (req, res) => {
-	logger.debug('app.js: /submit')
-
 	let transactionErrors
 	let amount = req.body.amount // In production you should not take amounts directly from clients
 	let nonce = req.body.payment_method_nonce
@@ -58,13 +55,11 @@ router.post('/submit', (req, res) => {
 			submitForSettlement: true
 		}
 	}, (err, result) => {
-		logger.debug(result)
+		console.log(result)
 		if (result.success) {
 			res.redirect('payment-success/' + result.transaction.id)
 		} else {
 			logger.error(result.message)
-			// transactionErrors = result.errors.deepErrors()
-			// req.flash('error', { msg: result.message })
 			res.redirect('payment-failure?err_msg=' + result.message)
 		}
 	})

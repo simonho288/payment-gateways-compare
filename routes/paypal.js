@@ -44,10 +44,7 @@ router.get('/payment-cancel', (req, res) => {
 	res.render('./paypal/payment-cancel.pug', opts)
 })
 
-// Form post by sandbox-express-checkout.pug
-router.post('/submit', (req, res) => {
-	logger.debug('app.js: /submit')
-	
+router.post('/submit', (req, res) => {	
 	let description = req.body.description ? req.body.description : 'This is the payment description'
 	let amount = req.body.amount
 	let host = req.protocol + '://' + req.get('host')
@@ -77,6 +74,7 @@ router.post('/submit', (req, res) => {
 			description: description
 		}]
 	}
+	// Call PayPal to process the payment
 	paypal.payment.create(createPaymentJson, (err, payment) => {
 		if (err) {
 			logger.error(err.response.error_description)

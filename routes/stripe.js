@@ -22,17 +22,6 @@ router.use((req, res, next) => {
 
 // define the home page route
 router.get('/', function(req, res) {
-// 	fs.readFile(path.join(__dirname, '../views/stripe/home.pug'), 'utf8', (err, data) => {
-// 		if (err) throw err
-// 		let content = data.replace('accesskey', process.env.STRIPE_PUBLISH_KEY)
-// 		let opts = {
-// 			pretty: true,
-// 			filename: path.join(__dirname, '../..')
-// 		}
-// 		let func = pug.compile(content, opts)
-// 		res.end(func())
-// 	})
-
 	let opts = {
 		accessKey: process.env.STRIPE_PUBLISH_KEY,
 		amount: (CHARGE_AMOUNT * 100).toString(),
@@ -41,7 +30,6 @@ router.get('/', function(req, res) {
 	res.render('./stripe/home.pug', opts)
 })
 
-// Form post by sandbox-express-checkout.pug
 router.get('/charge/:token', (req, res) => {
   let token = req.params.token
   console.assert(token)
@@ -53,9 +41,6 @@ router.get('/charge/:token', (req, res) => {
     description: 'Stripe experiment testing charge'
   }, (err, charge) => {
     if (err) {
-      // console.error('Charged failure', err.message)
-      // req.flash('payment_result', {error: err.message})
-      // console.log('err', err)
       res.redirect('/stripe/payment-failure?err_msg=' + err.message)
     } else {
 			console.log('charge', charge)
@@ -68,7 +53,6 @@ router.get('/charge/:token', (req, res) => {
   })
 })
 
-// Form post by sandbox-express-checkout.pug
 router.post('/charge', (req, res) => {
   let token = req.body.stripeToken
   console.assert(token)
@@ -80,9 +64,6 @@ router.post('/charge', (req, res) => {
     description: 'Stripe experiment testing charge'
   }, (err, charge) => {
     if (err) {
-      // console.error('Charged failure', err.message)
-      // req.flash('payment_result', {error: err.message})
-      // console.log('err', err)
       res.redirect('/stripe/payment-failure?err_msg=' + err.message)
     } else {
       console.log('Charged successful')
