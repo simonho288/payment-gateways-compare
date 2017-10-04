@@ -1,5 +1,6 @@
 body {
 	font-size: 18px;
+	margin-bottom: 50px;
 }
 
 ol {
@@ -30,8 +31,4 @@ ol {
 
 .creditcard-form {
 	margin-bottom: 20px;
-}
-
-#accordion {
-	margin-bottom: 100px;
 }

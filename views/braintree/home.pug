@@ -8,12 +8,12 @@ block content
 	.jumbotron
 		h2 Braintree Payment (#{mode})
 		ul
-			li NodeJS with braintree NPM
-			li Input amount and/or description
-			li Testing Visa cards (successful chargable): <kbd>4111111111111111</kbd>, expiry: <kbd>01/29</kbd>
-			li or occasionally unsuccessful charge cart: <kbd>4000111111111115</kbd>, expiry: <kbd>01/29</kbd>
-			li Click <kbd>Pay with Braintree</kbd> button
-			li Auto redirect to success or failure page depends on the card charged successfully
+			li NodeJS with <a href="https://www.npmjs.com/package/braintree" target="_blank">Braintree</a> NPM.
+			li Input amount and/or description.
+			li Testing Visa cards (successful chargable): <kbd>4111111111111111</kbd>, expiry: <kbd>01/29</kbd>.
+			li or occasionally unsuccessful charge cart: <kbd>4000111111111115</kbd>, expiry: <kbd>01/29</kbd>.
+			li Click <kbd>Pay with Braintree</kbd> button.
+			li Auto redirect to success or failure page depends on the card charged successfully.
 
 	form#payment-form(action="/braintree/submit", method="post")
 		.form-group

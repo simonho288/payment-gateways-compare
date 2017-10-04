@@ -8,12 +8,12 @@ block content
 	.jumbotron
 		h2 Paypal Payment (#{mode})
 		ul
-			li NodeJS with paypal-rest-sdk NPM
-			li Input amount and/or description
-			li Click <kbd>Pay with PayPal</kbd> button
-			li Auto redirect to PayPal and input PayPal account
-			li You can use this Paypal Test Account: <kbd>tester8@test.com</kbd>, password: <kbd>00000000</kbd>
-			li If payment successful, it redirects to Payment Successful page. Otherwise it redirects to Payment Failure page.
+			li NodeJS with <a href="https://www.npmjs.com/package/paypal-rest-sdk" target="_blank">paypal-rest-sdk</a> NPM.
+			li Input the amount and/or description.
+			li Click <kbd>Pay with PayPal</kbd> button.
+			li Auto redirect to PayPal site.
+			li You can use this Paypal test account: <kbd>tester8@test.com</kbd>, password: <kbd>00000000</kbd> to complete the payment.
+			li If payment successful, it redirects to payment success page. Otherwise to payment failure page.
 
 	form(action="/paypal/submit" method="POST")
 		.form-group

@@ -12,6 +12,7 @@ block content
 			.col-12
 				img(src="/images/success.svg" class="status-img")
 				h1 Payment Success
-				h3.description Transaction Id: #{txn_id}
-				p Thank you for your purchase
+				p.description Transaction Id: #{txn_id}
+		.row
+			.col-12
 				a(href="/braintree") Make another Braintree payment

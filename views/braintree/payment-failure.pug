@@ -12,6 +12,7 @@ block content
 			.col-12
 				img(src="/images/failure.svg" class="status-img")
 				h1 Payment Failure
-				h3.description.has-error Reason: #{err_msg}
-				p
-					a(href="/braintree") Click here to make payment again
+				p.description.has-error Reason: #{err_msg}
+		.row
+			.col-12
+				a(href="/braintree") Click here to make payment again

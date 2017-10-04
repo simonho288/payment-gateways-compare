@@ -36,7 +36,8 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 	gateway.clientToken.generate({}, (err, response) => {
 		let opts = {
-			clientToken: response.clientToken
+			clientToken: response.clientToken,
+			mode: process.env.BT_ENVIRONMENT
 		}
 		res.render('./braintree/home.pug', opts)
 	})
