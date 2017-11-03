@@ -1,6 +1,7 @@
 extends ../layout.pug
 
 block content
+	script(src='js/util.js')
 	ol.breadcrumb
 		li.breadcrumb-item
 			a(href="/") Home
@@ -15,11 +16,48 @@ block content
 			li You can use this Paypal test account: <kbd>tester8@test.com</kbd>, password: <kbd>00000000</kbd> to complete the payment.
 			li If payment successful, it redirects to payment success page. Otherwise to payment failure page.
 
-	form(action="/paypal/submit" method="POST")
-		.form-group
-			label(for="amount") Amount to pay in USD (1 - 9, default 1)
-			input(id="amount" class="form-control col-4" type="number" name="amount" value="1" min="1" max="9")
-		.form-group
-			label(for="description") Payment description
-			input#description.form-control(type="text" name="description" maxlength="100" placeholder="Optional")
-		button(class="btn btn-primary btn-lg" type="submit") Pay with PayPal
+	.card
+		.card-body
+			button.btn.btn-primary.btn-lg#classic-payment Classic Payment method (charge US$2)
+
+	br
+
+	.card
+		.card-body
+			form(action="/paypal/submit" method="POST")
+				.form-group
+					label(for="amount") Amount to pay in USD (1 - 9, default 1)
+					input(id="amount" class="form-control col-4" type="number" name="amount" value="1" min="1" max="9")
+				.form-group
+					label(for="description") Payment description
+					input#description.form-control(type="text" name="description" maxlength="100" placeholder="Optional")
+				button(class="btn btn-primary btn-lg" type="submit") Pay with PayPal
+
+	script.
+		$(document).ready(function() {
+			$('#classic-payment').click(function(evt) {
+				evt.preventDefault();
+				
+				const customId = '[id-of-payment-in-db]';
+				const currency = 'USD';
+				const paypalAccount = '#{paypal_account}' // this is rendered in PUG in paypal.js
+				var items = [{
+					name: 'Shop Product Description',
+					qty: 1,
+					price: 2,
+					itemId: 'Shop-product-Id'
+				}]
+				var urls = {
+					notify: document.location.origin + '/paypal/payment-notify-classic',
+					cancel: document.location.origin + '/paypal/payment-cancel-classic?custom=' + customId,
+					success: document.location.origin + '/paypal/payment-return-classic?paymentId=' + customId,
+				}
+				var form = genPayPalMarkup(items, true, currency, customId, paypalAccount, urls)
+				$('#hot_form').empty()
+				var $form = $(form)
+				$('#hot_form').append($form)
+				$form.submit()
+			})
+		})
+
+	div#hot_form

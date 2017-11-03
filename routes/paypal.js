@@ -21,9 +21,39 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 	let opts = {
 		pretty: true,
+		paypal_account: process.env.PAYPAL_ACCOUNT_EMAIL,
 		mode: process.env.PAYPAL_MODE
 	}
 	res.render('./paypal/home.pug', opts)
+})
+
+/**
+ * Add three routers for handling Paypal classical payment
+ */
+
+// This function called by Paypal when payment authorized successfully
+router.post('/payment-notify-classic', (req, res) => {
+	console.log('paypal payment notify called by Paypal. Dumping paypal post data:')
+	console.log(req.body)
+	res.send('')
+})
+
+router.get('/payment-return-classic', (req, res) => {
+	let opts = {
+		pretty: true,
+		paymentId: req.query.paymentId,
+		token: req.query.token,
+		PayerID: req.query.PayerID
+	}
+	res.render('./paypal/payment-return.pug', opts)
+})
+
+router.get('/payment-cancel-classic', (req, res) => {
+	let opts = {
+		pretty: true,
+		token: req.query.custom
+	}
+	res.render('./paypal/payment-cancel.pug', opts)
 })
 
 router.get('/payment-return', (req, res) => {
