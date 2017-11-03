@@ -10,6 +10,7 @@ This repo hosts the source codes which described in this [Blog post](https://blo
 In project root, create a text file `.env` and fill in the accesskey values from your payment processors.
 ```yaml
 PAYPAL_MODE=[sandbox|production]
+PAYPAL_ACCOUNT_EMAIL=[classic paypal account email]
 PAYPAL_CLIENT_ID='[Your PayPal Client Id]'
 PAYPAL_CLIENT_SECRET='[Your PayPal Client Secret]'
 
