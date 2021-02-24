@@ -2,7 +2,7 @@
 
 Compare three payment gateways (PayPal, Stripe, Braintree) in developer aspect. This project built using Node-ExpressJS as well as the NodeJS SDKs from three vendors.
 
-This repo hosts the source codes which described in this [Blog post](https://blog.simonho.net/paypal-vs-braintree-vs-stripe-ux-sdk/)
+This repo hosts the source codes which described in this [Blog post](https://blog.simonho.net/2017/10/comparing-ux-of-three-payment.html)
 
 ## Run the project
 
